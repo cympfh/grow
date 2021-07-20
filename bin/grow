@@ -11,9 +11,8 @@ EXAMPLE
     $ grow .
 
 OPTIONS
-    --web-port, -wp <INT>    Port number for Web (8080 by default)
-    --api-port, -ap <INT>    Port number for internal API (8081 by default)
-    --help                   Print this
+    --port, -p <INT>    Port number for Web (8080 by default)
+    --help              Print this
 EOM
     exit
 }
@@ -25,20 +24,15 @@ fi
 mkdir -p ~/.cache/grow.md/
 
 ROOT=
-WEB_PORT=8080
-API_PORT=8081
+PORT=8080
 
 while [ $# -gt 0 ]; do
     case "$1" in
         help | --help | -h )
             usage
             ;;
-        --web-port | -wp )
-            WEB_PORT=$2
-            shift 2
-            ;;
-        --api-port | -ap )
-            API_PORT=$2
+        --port | -p )
+            PORT=$2
             shift 2
             ;;
         * )
@@ -60,4 +54,4 @@ fi
 
 export GROW_ROOT="$(dirname $0)/../"
 export ROOT="${ROOT}"
-uvicorn --app-dir $GROW_ROOT web.server:app --port $API_PORT --debug
+uvicorn --app-dir $GROW_ROOT web.server:app --port $PORT --debug
