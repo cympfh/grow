@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pandoc -t html5 --mathjax

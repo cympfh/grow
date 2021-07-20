@@ -22,6 +22,8 @@ if [ $# -eq 0 ]; then
     usage
 fi
 
+mkdir -p ~/.cache/grow.md/
+
 ROOT=
 WEB_PORT=8080
 API_PORT=8081
@@ -56,12 +58,6 @@ if [ -z "$ROOT" ]; then
     exit 1
 fi
 
-GROW_ROOT="$(dirname $0)/../"
-
-uvicorn --app-dir $GROW_ROOT web.server:app --port $API_PORT
-
-# (
-#     cd $GROW_ROOT/web
-#     API_PORT=$API_PORT npx svelte-kit dev --port $WEB_PORT
-# )
-
+export GROW_ROOT="$(dirname $0)/../"
+export ROOT="${ROOT}"
+uvicorn --app-dir $GROW_ROOT web.server:app --port $API_PORT --debug
