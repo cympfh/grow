@@ -4,10 +4,12 @@ class File {
   kind: "file";
   name: string;
   fullpath: string;
+  active: boolean;
   constructor(path) {
     this.kind = "file";
     this.name = path;
     this.fullpath = path;
+    this.active = false;
   }
 }
 
@@ -43,6 +45,7 @@ function open_current(d: Directory, slug: string): boolean {
       }
     } else {
       if (node.fullpath == slug) {
+        node.active = true;
         return true;
       }
     }

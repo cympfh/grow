@@ -21,5 +21,5 @@
   </ul>
 {:else}
   <!-- file -->
-  <a href={"/" + tree.fullpath}>{tree.name}</a>
+  <a class:is-active={tree.active} href={"/" + tree.fullpath}>{tree.name}</a>
 {/if}

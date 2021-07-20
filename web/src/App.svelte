@@ -5,7 +5,8 @@
 
   const pathname = location.pathname;
   const slug = pathname.replace(/^\/*/, "").replace(/\/*$/, "");
-  console.log(slug);
+  const slug_decoded = decodeURIComponent(slug).replace(/\+/g, " ");
+  console.log(slug, slug_decoded);
   let content = "";
   let error = "";
   let tree = null;
@@ -48,7 +49,7 @@
     fetch("/api/list")
       .then((res) => res.json())
       .then((paths) => {
-        tree = filetree(paths, slug);
+        tree = filetree(paths, slug_decoded);
       });
   }
 
@@ -65,7 +66,7 @@
 <section class="hero">
   <div class="hero-body">
     <p class="title">grow.md</p>
-    <p class="subtitle">{slug}</p>
+    <p class="subtitle">{slug_decoded}</p>
   </div>
 </section>
 <div class="section">
