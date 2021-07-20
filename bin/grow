@@ -1,0 +1,67 @@
+#!/bin/bash
+
+usage() {
+    cat <<EOM
+NAME - grow
+
+SYNOPSIS
+    $ grow [OPTIONS] <PATH/TO/DIRECTORY>
+
+EXAMPLE
+    $ grow .
+
+OPTIONS
+    --web-port, -wp <INT>    Port number for Web (8080 by default)
+    --api-port, -ap <INT>    Port number for internal API (8081 by default)
+    --help                   Print this
+EOM
+    exit
+}
+
+if [ $# -eq 0 ]; then
+    usage
+fi
+
+ROOT=
+WEB_PORT=8080
+API_PORT=8081
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        help | --help | -h )
+            usage
+            ;;
+        --web-port | -wp )
+            WEB_PORT=$2
+            shift 2
+            ;;
+        --api-port | -ap )
+            API_PORT=$2
+            shift 2
+            ;;
+        * )
+            if [ -d "$1" ]; then
+                ROOT=$1
+            else
+                echo "Not existence directory: $1" >&2
+                exit 1
+            fi
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$ROOT" ]; then
+    echo "No directory passed" >&2
+    exit 1
+fi
+
+GROW_ROOT="$(dirname $0)/../"
+
+uvicorn --app-dir $GROW_ROOT web.server:app --port $API_PORT
+
+# (
+#     cd $GROW_ROOT/web
+#     API_PORT=$API_PORT npx svelte-kit dev --port $WEB_PORT
+# )
+
