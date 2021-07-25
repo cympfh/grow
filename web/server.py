@@ -17,14 +17,14 @@ logger = logging.getLogger("uvicorn")
 def compile(path_mkd: Path, path_cache: Path):
     """Compile markdown -> HTML"""
     logger.info("compile %s => %s", path_mkd, path_cache)
-    mdc = (grow_root / "bin" / "grow-compile").as_posix()
+    mdc = (grow_root / "bin/grow-compile").as_posix()
     with open(path_mkd, "rt") as input:
         with open(path_cache.as_posix(), "wb") as output:
             subprocess.run(["bash", mdc], stdin=input, stdout=output)
 
 
 @app.get("/api/list")
-async def list():
+async def list(tag: str = ''):
     """File list"""
 
     def without_ext(path):

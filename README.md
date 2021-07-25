@@ -12,3 +12,18 @@ $ open localhost:8080
 Compile script is `./bin/grow-compile`.
 Modify it if you need.
 
+<!--
+
+### Tagging
+
+Write `[#tag]` in Markdown.
+This will be compiled to a link `[#tag](/#tag)` (see `./bin/grow-compile`).
+And `/#tag` is a tag-filtered page.
+
+-->
+
+### mdc
+
+[mdc](https://github.com/cympfh/mdc) is a extended markdown.
+`grow-compile` uses this if available.
+
