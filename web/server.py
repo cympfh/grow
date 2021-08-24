@@ -38,7 +38,7 @@ async def list(tag: str = ''):
 @app.get("/api/content")
 async def content(slug: str):
     """Returns HTML Fragment for the markdown"""
-    path = (root / slug).with_suffix(".md")
+    path = root / (slug + ".md")
     try:
         with open(path, "rb") as f:
             content = f.read()
