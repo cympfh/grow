@@ -7,10 +7,19 @@ $ grow ~/Dropbox/scrap-markdown/ --port 8080
 $ open localhost:8080
 ```
 
+## Setup
+
+Clone this, then
+
+```bash
+$ make build
+```
+
 ## Markdown Compile
 
-Compile script is `./bin/grow-compile`.
-Modify it if you need.
+Compile script is written as `./bin/grow-compile`.
+Default uses just `pandoc`.
+Modify this if you need.
 
 <!--
 

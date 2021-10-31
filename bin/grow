@@ -12,6 +12,7 @@ EXAMPLE
 
 OPTIONS
     --port, -p <INT>    Port number for Web (8080 by default)
+    --host, -H <HOST>   127.0.0.1, 0.0.0.0 ... (127.0.0.1 by default)
     --help              Print this
     --debug             invoking uvicorn --debug
 EOM
@@ -26,6 +27,7 @@ mkdir -p ~/.cache/grow.md/
 
 ROOT=
 PORT=8080
+HOST=127.0.0.1
 DEBUG=0
 
 while [ $# -gt 0 ]; do
@@ -35,6 +37,10 @@ while [ $# -gt 0 ]; do
             ;;
         --port | -p )
             PORT=$2
+            shift 2
+            ;;
+        --host | -H )
+            HOST=$2
             shift 2
             ;;
         --debug )
@@ -64,4 +70,4 @@ OPTS=
 if [ $DEBUG -eq 1 ]; then
     OPTS="--debug"
 fi
-uvicorn --app-dir $GROW_ROOT web.server:app --port $PORT $OPTS
+uvicorn --app-dir $GROW_ROOT web.server:app --port $PORT --host $HOST $OPTS
