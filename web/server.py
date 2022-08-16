@@ -61,9 +61,14 @@ class MountFiles(StaticFiles):
 
     async def get_response(self, path, scope):
         """Rewrite to / if 404"""
-        response = await super().get_response(path, scope)
-        if response.status_code != 404:
-            return response
+        try:
+            response = await super().get_response(path, scope)
+            if response.status_code != 404:
+                return response
+        except Exception:
+            pass
+
+        # Returns `/`
         return await super().get_response("", scope)
 
 
