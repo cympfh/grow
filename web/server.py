@@ -9,8 +9,8 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(name="grow")
-grow_root = Path(os.environ.get("GROW_ROOT"))
-root = Path(os.environ.get("ROOT"))
+grow_root = Path(os.environ.get("GROW_ROOT", "."))
+root = Path(os.environ.get("ROOT", "."))
 logger = logging.getLogger("uvicorn")
 
 
@@ -24,8 +24,10 @@ def compile(path_mkd: Path, path_cache: Path):
 
 
 @app.get("/api/list")
-async def list(tag: str = ''):
+async def list(tag: str = ""):
     """File list"""
+
+    _ = tag
 
     def without_ext(path):
         return re.sub(r".md$", "", str(path))
