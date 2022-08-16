@@ -4,16 +4,15 @@ macro() {
     sed 's,\[\(#[^]]*\)\],[\1](/\1),g'
 }
 
-preprocessing() {
-    if ( which mdc > /dev/null ); then
-        mdc
+compile() {
+    if ( command -v unidoc >/dev/null ); then
+        unidoc
+    elif ( command -v unidoc >/dev/null ); then
+        pandoc -t html5 --mathjax
     else
-        cat
+        echo "No compiler found for markdown." >&2
+        false  # error!
     fi
 }
 
-compile() {
-    pandoc -t html5 --mathjax
-}
-
-macro | preprocessing | compile
+macro | compile
