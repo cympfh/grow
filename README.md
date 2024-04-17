@@ -18,21 +18,12 @@ $ make build
 ## Markdown Compile
 
 Compile script is written as `./bin/grow-compile`.
-Default uses just `pandoc`.
-Modify this if you need.
-
-<!--
+[unidoc](https://github.com/cympfh/unidoc) is most prior compiler.
+If unidoc is not found, trying to use `pandoc`.
+You can modify this freely.
 
 ### Tagging
 
 Write `[#tag]` in Markdown.
 This will be compiled to a link `[#tag](/#tag)` (see `./bin/grow-compile`).
 And `/#tag` is a tag-filtered page.
-
--->
-
-### mdc
-
-[mdc](https://github.com/cympfh/mdc) is a extended markdown.
-`grow-compile` uses this if available.
-
